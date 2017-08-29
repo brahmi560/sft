@@ -16,6 +16,12 @@ return [
     		'techcategories' => [
     				'class' => 'backend\modules\techcategories\techcategories',
     		],
+    		'technologies' => [
+    				'class' => 'backend\modules\technologies\technologies',
+    		],
+    		'technologiesinformation' => [
+    				'class' => 'backend\modules\technologiesinformation\technologiesinformation',
+    		],
     ],
     'components' => [
         'request' => [
