@@ -27,6 +27,7 @@ use backend\modules\techcategories\models\TechCategories;
  */
 class Technologies extends \yii\db\ActiveRecord
 {
+	public $techcatList;
     /**
      * @inheritdoc
      */
@@ -41,7 +42,8 @@ class Technologies extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['techName', 'techCategoryId', 'techDescription', 'status', 'techMetaTitle', 'techMetaKey', 'techMetaDescription', 'techPageTitle', 'createdBy', 'updatedBy', 'createdDate', 'updatedDate'], 'required'],
+            [['techName', 'techCategoryId', 'techDescription', 'status', 'techMetaTitle', 'techMetaKey', 'techMetaDescription', 'techPageTitle', 'createdBy', 'updatedBy', 'createdDate', 'updatedDate','techcatList'], 'safe'],
+        	[['techName', 'techCategoryId',  'status'], 'required'],
             [['techCategoryId', 'createdBy', 'updatedBy'], 'integer'],
             [['techDescription', 'status', 'techMetaTitle', 'techMetaKey', 'techMetaDescription', 'techPageTitle'], 'string'],
             [['createdDate', 'updatedDate'], 'safe'],
@@ -87,4 +89,27 @@ class Technologies extends \yii\db\ActiveRecord
     {
         return $this->hasMany(TechnologiesInformation::className(), ['technologyId' => 'techId']);
     } */
+    
+    
+    public static function getTechCategoryList()
+    {
+    	$result = array();
+    	$dataList = TechCategories::find()->select(['techCatId','techCategoryName'])->where(['status' => 'Active'])->all();
+    	foreach($dataList as $data)
+    	{
+    		$result[$data->techCatId] = $data->techCategoryName;
+    	}
+    	return $result;
+    }
+    
+    public static function getTechnologiesList()
+    {
+    	$result = array();
+    	$dataList = Technologies::find()->select(['techId','techName'])->where(['status' => 'Active'])->all();
+    	foreach($dataList as $data)
+    	{
+    		$result[$data->techId] = $data->techName;
+    	}
+    	return $result;
+    }
 }

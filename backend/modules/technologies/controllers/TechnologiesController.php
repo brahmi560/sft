@@ -64,9 +64,14 @@ class TechnologiesController extends Controller
     public function actionCreate()
     {
         $model = new Technologies();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->techId]);
+        $model->techcatList = Technologies::getTechCategoryList();
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+        	$model->createdDate =  date("Y-m-d H:i:s");
+        	$model->updatedDate = date('Y-m-d H:i:s');
+        	$model->createdBy = Yii::$app->user->identity->id;
+        	$model->updatedBy = Yii::$app->user->identity->id;
+        	$model->save();
+            return $this->redirect(['index']);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -83,9 +88,13 @@ class TechnologiesController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $model->techcatList = Technologies::getTechCategoryList();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->techId]);
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+        	$model->updatedDate =  date("Y-m-d H:i:s");
+        	$model->updatedBy = Yii::$app->user->identity->id;
+        	$model->save();
+            return $this->redirect(['index']);
         } else {
             return $this->render('update', [
                 'model' => $model,

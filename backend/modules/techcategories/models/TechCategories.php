@@ -32,7 +32,8 @@ class TechCategories extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['techCategoryName', 'techCatDescription', 'status', 'createdBy', 'updatedBy', 'createdDate', 'updatedDate'], 'required'],
+            [['techCategoryName', 'techCatDescription', 'status', 'createdBy', 'updatedBy', 'createdDate', 'updatedDate'], 'safe'],
+        		[['techCategoryName',  'status'], 'required'],
             [['techCatDescription', 'status'], 'string'],
             [['createdBy', 'updatedBy'], 'integer'],
             [['createdDate', 'updatedDate'], 'safe'],

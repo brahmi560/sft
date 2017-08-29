@@ -22,13 +22,17 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            //['class' => 'yii\grid\SerialColumn'],
 
             'techCatId',
             'techCategoryName',
             'techCatDescription:ntext',
-            'status',
-            'createdBy',
+            [
+        		'attribute' => 'status',
+        		'value' => 'status',
+        		'filter' => Html::activeDropDownList($searchModel, 'status', ['Active' => 'Active','In-active' => 'In-active'],['class'=>'form-control','prompt' => 'Status']),
+        		],
+            //'createdBy',
             // 'updatedBy',
             // 'createdDate',
             // 'updatedDate',

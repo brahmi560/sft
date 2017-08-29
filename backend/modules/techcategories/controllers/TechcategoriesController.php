@@ -65,8 +65,14 @@ class TechcategoriesController extends Controller
     {
         $model = new TechCategories();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->techCatId]);
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+        	
+        	$model->createdDate =  date("Y-m-d H:i:s");
+        	$model->updatedDate = date('Y-m-d H:i:s');
+        	$model->createdBy = Yii::$app->user->identity->id;
+        	$model->updatedBy = Yii::$app->user->identity->id;
+        	$model->save();
+            return $this->redirect(['index']);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -84,8 +90,12 @@ class TechcategoriesController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->techCatId]);
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+        	
+        	$model->updatedDate =  date("Y-m-d H:i:s");
+        	$model->updatedBy = Yii::$app->user->identity->id;
+        	$model->save();
+            return $this->redirect(['index']);
         } else {
             return $this->render('update', [
                 'model' => $model,

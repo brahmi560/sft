@@ -8,6 +8,7 @@ use backend\modules\technologiesinformation\models\TechnologiesInformationSearch
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use backend\modules\technologies\models\Technologies;
 
 /**
  * TechnologiesinformationController implements the CRUD actions for TechnologiesInformation model.
@@ -64,9 +65,14 @@ class TechnologiesinformationController extends Controller
     public function actionCreate()
     {
         $model = new TechnologiesInformation();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->technologyInfoId]);
+        $model->technologyList = Technologies::getTechnologiesList();
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+        	$model->createdDate =  date("Y-m-d H:i:s");
+        	$model->updatedDate = date('Y-m-d H:i:s');
+        	$model->createdBy = Yii::$app->user->identity->id;
+        	$model->updatedBy = Yii::$app->user->identity->id;
+        	$model->save();
+            return $this->redirect(['index']);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -83,9 +89,13 @@ class TechnologiesinformationController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $model->technologyList = Technologies::getTechnologiesList();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->technologyInfoId]);
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+        	$model->updatedDate =  date("Y-m-d H:i:s");
+        	$model->updatedBy = Yii::$app->user->identity->id;
+        	$model->save();
+            return $this->redirect(['index']);
         } else {
             return $this->render('update', [
                 'model' => $model,

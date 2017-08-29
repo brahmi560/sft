@@ -18,13 +18,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'status')->dropDownList([ 'Active' => 'Active', 'In-active' => 'In-active', ], ['prompt' => '']) ?>
 
-    <?= $form->field($model, 'createdBy')->textInput() ?>
-
-    <?= $form->field($model, 'updatedBy')->textInput() ?>
-
-    <?= $form->field($model, 'createdDate')->textInput() ?>
-
-    <?= $form->field($model, 'updatedDate')->textInput() ?>
+   
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
