@@ -16,34 +16,18 @@ AppAsset::register($this);
 <?php $url = Yii::getAlias('@web'); ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?= Yii::$app->language ?>">
 <head>
-<meta charset="utf-8">
-<title>Sailor - Bootstrap 3 corporate template</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="Bootstrap 3 template for corporate business" />
-<!-- css -->
-<link href="<?= $url; ?>/css/bootstrap.min.css" rel="stylesheet" />
-<link href="<?= $url; ?>/plugins/flexslider/flexslider.css" rel="stylesheet" media="screen" />	
-<link href="<?= $url; ?>/css/cubeportfolio.min.css" rel="stylesheet" />
-<link href="<?= $url; ?>/css/style.css" rel="stylesheet" />
-
-<!-- Theme skin -->
-<link id="t-colors" href="<?= $url; ?>/skins/default.css" rel="stylesheet" />
-
-	<!-- boxed bg -->
-	<link id="bodybg" href="<?= $url; ?>/bodybg/bg1.css" rel="stylesheet" type="text/css" />
-
-<!-- =======================================================
-    Theme Name: Sailor
-    Theme URL: https://bootstrapmade.com/sailor-free-bootstrap-theme/
-    Author: BootstrapMade
-    Author URL: https://bootstrapmade.com
-======================================================= -->
+<meta charset="<?= Yii::$app->charset ?>">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <?= Html::csrfMetaTags() ?>
+    <title><?= Html::encode($this->title) ?></title>
+    <?php $this->head() ?>
 
 </head>
 <body>
-
+<?php $this->beginBody() ?>
 
 
 <div id="wrapper">
@@ -721,22 +705,9 @@ AppAsset::register($this);
 <a href="#" class="scrollup"><i class="fa fa-angle-up active"></i></a>
 
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="<?= $url; ?>/js/jquery.min.js"></script>
-<script src="<?= $url; ?>/js/modernizr.custom.js"></script>
-<script src="<?= $url; ?>/js/jquery.easing.1.3.js"></script>
-<script src="<?= $url; ?>/js/bootstrap.min.js"></script>
-<script src="<?= $url; ?>/plugins/flexslider/jquery.flexslider-min.js"></script> 
-<script src="<?= $url; ?>/plugins/flexslider/flexslider.config.js"></script>
-<script src="<?= $url; ?>/js/jquery.appear.js"></script>
-<script src="<?= $url; ?>/js/stellar.js"></script>
-<script src="<?= $url; ?>/js/classie.js"></script>
-<script src="<?= $url; ?>/js/uisearch.js"></script>
-<script src="<?= $url; ?>/js/jquery.cubeportfolio.min.js"></script>
-<script src="<?= $url; ?>/js/google-code-prettify/prettify.js"></script>
-<script src="<?= $url; ?>/js/animate.js"></script>
-<script src="<?= $url; ?>/js/custom.js"></script>
 
-	
+
+<?php $this->endBody() ?>	
 </body>
 </html>
 
