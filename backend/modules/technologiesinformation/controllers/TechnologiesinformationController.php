@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use backend\modules\technologies\models\Technologies;
+use yii\web\UploadedFile;
 
 /**
  * TechnologiesinformationController implements the CRUD actions for TechnologiesInformation model.
@@ -66,13 +67,33 @@ class TechnologiesinformationController extends Controller
     {
         $model = new TechnologiesInformation();
         $model->technologyList = Technologies::getTechnologiesList();
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+        if ($model->load(Yii::$app->request->post())) {
+        $model->techInfoImage = UploadedFile::getInstance($model,'techInfoImage');
+        	if($model->validate())
+        	{
         	$model->createdDate =  date("Y-m-d H:i:s");
         	$model->updatedDate = date('Y-m-d H:i:s');
         	$model->createdBy = Yii::$app->user->identity->id;
         	$model->updatedBy = Yii::$app->user->identity->id;
+        	
+        	if(!(empty($model->techInfoImage)))
+        	{
+        		 
+        		$imageName = time().$model->techInfoImage->name;
+        		 
+        		$model->techInfoImage->saveAs('technologyimages/'.$imageName );
+        		 
+        		$model->techInfoImage = 'technologyimages/'.$imageName;
+        	}
         	$model->save();
+        	
             return $this->redirect(['index']);
+        	}
+        	else{
+        		return $this->render('create', [
+        				'model' => $model,
+        		]);
+        	}
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -90,12 +111,35 @@ class TechnologiesinformationController extends Controller
     {
         $model = $this->findModel($id);
         $model->technologyList = Technologies::getTechnologiesList();
+        $model->techInfoImageupdate = $model->techInfoImage;
+        $model->techInfoImage = '';
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+        if ($model->load(Yii::$app->request->post()) ) {
+        	$model->techInfoImage = UploadedFile::getInstance($model,'techInfoImage');
+        	if($model->validate())
+        	{
         	$model->updatedDate =  date("Y-m-d H:i:s");
         	$model->updatedBy = Yii::$app->user->identity->id;
+        	if(!(empty($model->techInfoImage)))
+        	{
+        		 
+        		$imageName = time().$model->techInfoImage->name;
+        		 
+        		$model->techInfoImage->saveAs('technologyimages/'.$imageName );
+        		 
+        		$model->techInfoImage = 'technologyimages/'.$imageName;
+        	}
+        	else {
+        		$model->techInfoImage = $model->techInfoImageupdate;
+        	}
         	$model->save();
             return $this->redirect(['index']);
+        	}
+        	else{
+        		return $this->render('update', [
+        				'model' => $model,
+        		]);
+        	}
         } else {
             return $this->render('update', [
                 'model' => $model,

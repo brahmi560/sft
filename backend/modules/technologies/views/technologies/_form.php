@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\file\FileInput;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model backend\modules\technologies\models\Technologies */
@@ -20,6 +22,38 @@ use yii\widgets\ActiveForm;
     
 
     <?= $form->field($model, 'techDescription')->textarea(['rows' => 6]) ?>
+    
+    <?php if($model->techImageupdate != ''){?>
+    <div class="form-group col-lg-12 col-sm-12">
+   
+    </div>
+  
+    <div class="form-group col-lg-12 col-sm-12">
+    <?php $imgeurl = str_replace("frontend","backend",Yii::getAlias('@web/')).$model->techImageupdate;?>
+
+						 		
+						 		<?php  
+						 		// print_r($imgeurl);exit;?>
+						<img class='image' 
+							src="<?php
+							if($model->techImageupdate)
+							{
+								
+								echo isset( $model->techImageupdate)? Url::base().'/'.$model->techImageupdate : '' ;
+							
+							}else {
+									 echo Url::base()."/images/user-iconnew.png" ;
+								      }
+								?>"
+							 /> 
+							 
+            <?= $form->field($model, 'techImageupdate')->hiddenInput()->label(false); ?>
+            
+        
+	</div> 
+	<?php } ?>
+    <?=$form->field ( $model, 'techImage' )->widget ( FileInput::classname (),
+   		[ 'options' => [ 'accept' => 'image/*' ],'pluginOptions' =>[[ 'browseLabel' => 'Tech Category Image', 'allowedFileExtensions'=>['jpg','png','jpeg'] ]] ] )?> 
 
     <?= $form->field($model, 'status')->dropDownList([ 'Active' => 'Active', 'In-active' => 'In-active', ], ['prompt' => 'Select Status']) ?>
 

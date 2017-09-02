@@ -18,6 +18,7 @@ use Yii;
  */
 class TechCategories extends \yii\db\ActiveRecord
 {
+	public $techCatImageupdate;
     /**
      * @inheritdoc
      */
@@ -32,7 +33,7 @@ class TechCategories extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['techCategoryName', 'techCatDescription', 'status', 'createdBy', 'updatedBy', 'createdDate', 'updatedDate'], 'safe'],
+            [['techCategoryName', 'techCatDescription', 'status', 'createdBy', 'updatedBy', 'createdDate', 'updatedDate','techCatImage','techCatImageupdate'], 'safe'],
         		[['techCategoryName',  'status'], 'required'],
             [['techCatDescription', 'status'], 'string'],
             [['createdBy', 'updatedBy'], 'integer'],

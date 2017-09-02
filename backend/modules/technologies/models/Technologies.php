@@ -28,6 +28,7 @@ use backend\modules\techcategories\models\TechCategories;
 class Technologies extends \yii\db\ActiveRecord
 {
 	public $techcatList;
+	public $techImageupdate;
     /**
      * @inheritdoc
      */
@@ -42,7 +43,7 @@ class Technologies extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['techName', 'techCategoryId', 'techDescription', 'status', 'techMetaTitle', 'techMetaKey', 'techMetaDescription', 'techPageTitle', 'createdBy', 'updatedBy', 'createdDate', 'updatedDate','techcatList'], 'safe'],
+            [['techName', 'techCategoryId', 'techDescription', 'status', 'techMetaTitle', 'techMetaKey', 'techMetaDescription', 'techPageTitle', 'createdBy', 'updatedBy', 'createdDate', 'updatedDate','techcatList','techImage','techImageupdate'], 'safe'],
         	[['techName', 'techCategoryId',  'status'], 'required'],
             [['techCategoryId', 'createdBy', 'updatedBy'], 'integer'],
             [['techDescription', 'status', 'techMetaTitle', 'techMetaKey', 'techMetaDescription', 'techPageTitle'], 'string'],

@@ -28,6 +28,7 @@ use backend\modules\technologies\models\Technologies;
 class TechnologiesInformation extends \yii\db\ActiveRecord
 {
 	public $technologyList;
+	public $techInfoImageupdate;
     /**
      * @inheritdoc
      */
@@ -42,7 +43,7 @@ class TechnologiesInformation extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['technologySiteName', 'technologyUrl', 'technologyDescription', 'technologyId', 'status', 'createdBy', 'updatedBy', 'createdDate', 'updatedDate', 'techinfoMetaTitle', 'techinfoMetaKey', 'techinfoMetaDescription', 'techinfoPageTitle','technologyList'], 'safe'],
+            [['technologySiteName', 'technologyUrl', 'technologyDescription', 'technologyId', 'status', 'createdBy', 'updatedBy', 'createdDate', 'updatedDate', 'techinfoMetaTitle', 'techinfoMetaKey', 'techinfoMetaDescription', 'techinfoPageTitle','technologyList','techInfoImage','techInfoImageupdate'], 'safe'],
         	[['technologySiteName', 'technologyUrl', 'technologyDescription', 'technologyId', 'status'], 'required'],
             [['technologyUrl', 'technologyDescription', 'status', 'techinfoMetaTitle', 'techinfoMetaKey', 'techinfoMetaDescription', 'techinfoPageTitle'], 'string'],
             [['technologyId', 'createdBy', 'updatedBy'], 'integer'],

@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\file\FileInput;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model backend\modules\technologiesinformation\models\TechnologiesInformation */
@@ -15,6 +17,38 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'technologySiteName')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'technologyUrl')->textarea(['rows' => 6]) ?>
+    
+    <?php if($model->techInfoImageupdate != ''){?>
+    <div class="form-group col-lg-12 col-sm-12">
+   
+    </div>
+  
+    <div class="form-group col-lg-12 col-sm-12">
+    <?php $imgeurl = str_replace("frontend","backend",Yii::getAlias('@web/')).$model->techInfoImageupdate;?>
+
+						 		
+						 		<?php  
+						 		// print_r($imgeurl);exit;?>
+						<img class='image' 
+							src="<?php
+							if($model->techInfoImageupdate)
+							{
+								
+								echo isset( $model->techInfoImageupdate)? Url::base().'/'.$model->techInfoImageupdate : '' ;
+							
+							}else {
+									 echo Url::base()."/images/user-iconnew.png" ;
+								      }
+								?>"
+							 /> 
+							 
+            <?= $form->field($model, 'techInfoImageupdate')->hiddenInput()->label(false); ?>
+            
+        
+	</div> 
+	<?php } ?>
+    <?=$form->field ( $model, 'techInfoImage' )->widget ( FileInput::classname (),
+   		[ 'options' => [ 'accept' => 'image/*' ],'pluginOptions' =>[[ 'browseLabel' => 'Tech Category Image', 'allowedFileExtensions'=>['jpg','png','jpeg'] ]] ] )?>
 
     <?= $form->field($model, 'technologyDescription')->textarea(['rows' => 6]) ?>
 
